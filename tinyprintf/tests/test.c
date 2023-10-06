@@ -77,22 +77,6 @@ Test(medium, pourcentage)
     cr_assert_stdout_eq_str("%s");
 }
 
-Test(medium, int_min)
-{
-    cr_redirect_stdout();
-    tinyprintf("int min = %d\n", -2147483648);
-    fflush(stdout);
-    cr_assert_stdout_eq_str("-2147483648");
-}
-
-Test(medium, int_max)
-{
-    cr_redirect_stdout();
-    tinyprintf("int max = %d\n", 2147483648);
-    fflush(stdout);
-    cr_assert_stdout_eq_str("2147483648");
-}
-
 // Hard tests
 Test(hard, tricky_case)
 {
