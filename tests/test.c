@@ -4,6 +4,22 @@
 #include "../src/tinyprintf.h"
 
 // Basic tests
+Test(simple, null_format)
+{
+    cr_redirect_stdout();
+    tinyprintf(NULL, 'c');
+    fflush(stdout);
+    cr_assert_stdout_eq_str("");
+}
+
+Test(simple, null_string)
+{
+    cr_redirect_stdout();
+    tinyprintf("%s", NULL);
+    fflush(stdout);
+    cr_assert_stdout_eq_str("(null)");
+}
+
 Test(simple, char_only)
 {
     cr_redirect_stdout();
@@ -11,6 +27,15 @@ Test(simple, char_only)
     fflush(stdout);
     cr_assert_stdout_eq_str("c");
 }
+
+Test(simple, 0hex)
+{
+    cr_redirect_stdout();
+    tinyprintf("%x", 0);
+    fflush(stdout);
+    cr_assert_stdout_eq_str("0");
+}
+
 
 Test(simple, empty)
 {

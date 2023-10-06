@@ -25,9 +25,8 @@ void str_revert(char *s)
 }
 
 // Convert for an int in any base
-char *itoa_base(int n, char *base)
+char *itoa_base(int n, char s[], char *base)
 {
-    char *s = malloc(sizeof(char) * 80);
     if (n == 0)
     {
         s[0] = base[0];
@@ -58,7 +57,7 @@ char *itoa_base(int n, char *base)
 }
 
 // Display the string in the terminal
-void print_res(char *s, int len)
+void print_res(char s[], int len)
 {
     for (int i = 0; i < len; i++)
     {
@@ -83,15 +82,24 @@ void print_res(char *s, int len)
     }
 }
 
-int display(char *s)
+int display(char s[])
 {
-    int length = str_len(s);
-    print_res(s, length); // Display string
-    return length;
+    if (s == NULL)
+    {
+        print_res("(null)", 6);
+        return 6;
+    }
+    else
+    {
+        int length = str_len(s);
+        print_res(s, length); // Display string
+        return length;
+    }
 }
 
 int match(char c, char type, va_list ap)
 {
+    char s[80];
     int count = 0;
     switch (type)
     {
@@ -101,11 +109,11 @@ int match(char c, char type, va_list ap)
         break;
     // Signed decimal
     case 'd':
-        count += display(itoa_base(va_arg(ap, int), "0123456789"));
+        count += display(itoa_base(va_arg(ap, int), s, "0123456789"));
         break;
     // Decimal unsigned
     case 'u':
-        count += display(itoa_base(va_arg(ap, unsigned), "0123456789"));
+        count += display(itoa_base(va_arg(ap, unsigned), s, "0123456789"));
         break;
     // String
     case 's':
@@ -118,11 +126,11 @@ int match(char c, char type, va_list ap)
         break;
     // Octal
     case 'o':
-        count += display(itoa_base(va_arg(ap, unsigned), "01234567"));
+        count += display(itoa_base(va_arg(ap, unsigned), s, "01234567"));
         break;
     // Hexa
     case 'x':
-        count += display(itoa_base(va_arg(ap, unsigned), "0123456789abcdef"));
+        count += display(itoa_base(va_arg(ap, unsigned), s, "0123456789abcdef"));
         break;
     default:
         count++;
@@ -136,6 +144,8 @@ int match(char c, char type, va_list ap)
 // Main function
 int tinyprintf(const char *format, ...)
 {
+    if (format == NULL)
+        return 1;
     va_list ap;
     va_start(ap, format); // Start va
     int count = 0; // Final count of the string
