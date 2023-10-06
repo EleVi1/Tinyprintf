@@ -12,6 +12,14 @@ Test(simple, char_only)
     cr_assert_stdout_eq_str("c");
 }
 
+Test(simple, empty)
+{
+    cr_redirect_stdout();
+    tinyprintf("%s", "");
+    fflush(stdout);
+    cr_assert_stdout_eq_str("");
+}
+
 Test(simple, string_only)
 {
     cr_redirect_stdout();
