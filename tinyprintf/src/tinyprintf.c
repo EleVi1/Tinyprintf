@@ -27,7 +27,7 @@ void str_revert(char *s)
 // Convert for an int in any base
 char *itoa_base(int n, char *base)
 {
-    char *s = malloc(sizeof(char) * 20);
+    char *s = malloc(sizeof(char) * 80);
     if (n == 0)
     {
         s[0] = base[0];
