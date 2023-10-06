@@ -122,7 +122,7 @@ int match(char type, va_list ap)
         break;
     // Hexa
     case 'x':
-        count += display(itoa_base(va_arg(ap, unsigned), "012345679abcdef"));
+        count += display(itoa_base(va_arg(ap, unsigned), "0123456789abcdef"));
         break;
     default:
         count++;

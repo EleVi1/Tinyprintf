@@ -1,15 +1,22 @@
+FILE_C= src/tinyprintf.c
+FILE_O= src/tinyprintf.o
+FILE_EXEC= src/tinyprintf
+
 CC=gcc
 CFLAGS=-std=c99 -Wall -Wextra -Werror -Wvla -pedantic
 LDLIBS=-lcriterion
 
-all: src/tinyprintf.o
-	$(CC) $(LDFLAGS) -o src/tinyprintf.o
+all: $(FILE_C)
+	$(CC) -o $(FILE_O) $(FILE_C)
 
-check: tests/test.c tests/test.o src/tinyprintf.c src/tinyprintf.o
-	$(CC) $(LDFLAGS) -o check src/tinyprintf.o tests/test.o ${LDLIBS}
+$(FILE_O): $(FILE_C)
+	$(CC) $(CFLAGS) -c -o $(FILE_O) $(FILE_C)
 
-tinyprintf.o: tests/test.c
-	$(CC) $(CFLAGS) -c -o src/tinyprintf.o tests/test.c
+test.o: tests/test.c
+	$(CC) $(CFLAGS) -c -o tests/test.o tests/test.c
+
+check: tests/test.o $(FILE_O)
+	$(CC) -o check tests/test.o $(FILE_O) ${LDLIBS}
 
 clean:
-	rm -f *.o
+	rm -rf src/*.o tests/test tests/*.o
