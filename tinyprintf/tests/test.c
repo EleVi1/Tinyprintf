@@ -42,7 +42,7 @@ Test(medium, int_hex_only)
     cr_redirect_stdout();
     tinyprintf("%x", 32);
     fflush(stdout);
-    cr_assert_stdout_eq_str("2a");
+    cr_assert_stdout_eq_str("20");
 }
 
 Test(medium, int_oct_only)

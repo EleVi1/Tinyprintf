@@ -90,7 +90,7 @@ int display(char *s)
     return length;
 }
 
-int match(char type, va_list ap)
+int match(char c, char type, va_list ap)
 {
     int count = 0;
     switch (type)
@@ -126,6 +126,7 @@ int match(char type, va_list ap)
         break;
     default:
         count++;
+        putchar(c);
         putchar(type);
         break;
     }
@@ -144,7 +145,7 @@ int tinyprintf(const char *format, ...)
         if (format[i] == '%')
         {
             i++;
-            count += match(format[i], ap);
+            count += match('%', format[i], ap);
         }
         else
         {
