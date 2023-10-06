@@ -99,7 +99,7 @@ int display(char s[])
 
 int match(char c, char type, va_list ap)
 {
-    char s[80];
+    char s[100];
     int count = 0;
     switch (type)
     {
